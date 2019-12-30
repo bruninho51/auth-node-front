@@ -24,7 +24,10 @@ class Auth {
             Login.setState({ redirect: true });
           }
         }).catch(function(err) {
-          alert(err.response.data.message || err);
+          Login.setState({ 
+            error: err.response.data.message || err,
+            isError: true
+          })
         });
     }
 
