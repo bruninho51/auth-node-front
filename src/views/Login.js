@@ -20,7 +20,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
 import { FormHelperText } from '@material-ui/core';
 import { Snackbar, SnackbarContent } from '@material-ui/core';
-import { ErrorStackedbar } from '../components/alert'
+import { ErrorStackedbar } from '../components/Alert';
 
 const styles = theme => ({
     paper: {

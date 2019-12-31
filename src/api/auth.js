@@ -39,6 +39,10 @@ class Auth {
 
       return false;
     }
+
+    logout() {
+      localStorage.removeItem(config.API.TOKEN_NAME);
+    }
 }
 
 export default new Auth;
