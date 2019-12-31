@@ -31,6 +31,9 @@ export default class Principal extends React.Component {
                         </ListItem>
                     </List>
                 </MenuAppBar>
+                <div>
+                    {this.props.children}
+                </div>
             </div>
         );
     }
