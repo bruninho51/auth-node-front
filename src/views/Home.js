@@ -11,7 +11,7 @@ export default class Home extends React.Component {
         return (
             <Principal>
                 <Container>
-                    <h1>Testando 123</h1>
+                    <h1>Home</h1>
                 </Container>
             </Principal>
         );

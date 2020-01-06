@@ -1,6 +1,6 @@
 import React from 'react';
 import Auth from '../api/auth';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import MenuAppBar from '../components/MenuAppBar';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -21,10 +21,12 @@ export default class Principal extends React.Component {
             <div>
                 <MenuAppBar>
                     <List>
-                        <ListItem button>
-                            <ListItemIcon><PersonIcon /></ListItemIcon>
-                            <ListItemText primary="Cadastrar Perfil" />
-                        </ListItem>
+                        <Link to="/profile">
+                            <ListItem button>
+                                <ListItemIcon><PersonIcon /></ListItemIcon>
+                                <ListItemText primary="Cadastrar Perfil" />
+                            </ListItem>
+                        </Link>
                         <ListItem button>
                             <ListItemIcon><AssignmentIcon /></ListItemIcon>
                             <ListItemText primary="Cadastrar Tarefa" />
