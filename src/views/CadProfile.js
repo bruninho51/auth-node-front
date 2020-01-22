@@ -1,20 +1,18 @@
 import React from 'react';
 import Principal from '../components/Principal';
 import DynamicForm from '../components/DynamicForm';
-import validation from '../validations/validation';
+import validation from '../validations/profile';
 import Container from '@material-ui/core/Container';
 
 export default class CadProfile extends React.Component {
     constructor(props) {
         super(props);
         this.fields = [
-            {label: "Nome", type: "input", name: "firstName", value: ""},
-            {label: "Sobrenome", type: "input", name: "lastName", value: ""},
-            {label: "Rua", type: "input", name: "address", value: ""},
-            {label: "Cidade", type: "input", name: "city", value: ""},
-            {label: "Ocupação", type: "select", name: "ocuppation", data: ['Professor', 'Engenheiro', 'Programador', 'Médico', 'Advogado']},
-            {label: "Mensagem", type: "textarea", name: "message", value: ""},
-            {label: "Aceito os termos e condições", type: "checkbox", name: "terms", value: false}
+            {label: "Usuário", type: "input", name: "nickname", value: ""},
+            {label: "Senha", type: "password", name: "pwd", value: ""},
+            {label: "Confirmar Senha", type: "password", name: "confirmPwd", value: ""},
+            {label: "Data de Nascimento", type: "date", name: "dateOfBird", value: ""},
+            {label: "Pontuação", type: "number", name: "score", min: 0, value: 0}
         ];
     }
 
@@ -24,7 +22,9 @@ export default class CadProfile extends React.Component {
                 <Container>
                     <DynamicForm 
                         fields={this.fields} 
-                        validation={validation} 
+                        title="Cadastrar Perfil"
+                        btnName="Salvar"
+                        validation={validation}
                     />
                 </Container>
             </Principal>

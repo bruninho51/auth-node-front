@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { Formik, Field } from 'formik';
 import { withStyles } from '@material-ui/core/styles';
+import { Button } from '@material-ui/core';
 
 const styles = {
     hidden: {
@@ -10,8 +11,7 @@ const styles = {
         backgroundColor: "red"
     },
     error: {
-        backgroundColor: "red",
-        color: "black"
+        color: "red"
     }
 };
 
@@ -21,7 +21,7 @@ class DynamicForm extends React.Component {
         super(props);
 
         this.renderFields = this.renderFields.bind(this);
-        this.renderText = this.renderText.bind(this);
+        this.renderGeneric = this.renderGeneric.bind(this);
         this.renderSelect = this.renderSelect.bind(this);
         this.renderCheckbox = this.renderCheckbox.bind(this);
         this.renderTextArea = this.renderTextArea.bind(this);
@@ -39,12 +39,12 @@ class DynamicForm extends React.Component {
 
                 const callback = components[input.type];
 
-                return callback ? callback(input) : this.renderText(input);
+                return callback ? callback(input) : this.renderGeneric(input);
             })
         );
     }
 
-    renderText(input) {
+    renderGeneric(input) {
         let classes = this.props.classes;
         return (
             <Fragment key={input.name}>
@@ -55,13 +55,24 @@ class DynamicForm extends React.Component {
                         render={(props) => {
                             const { field, form } = props;
                             const { errors, touched } = props.form;
-                            const hasError = errors[input.name] && touched[input.name] ? classes.hasError : "";
+                            const error = errors[input.name] && touched[input.name] ? errors[input.name] : false;
                             return (
-                                <input 
-                                    {... field}
-                                    className={hasError}
-                                    type="text"
-                                />
+                                <React.Fragment>
+                                    <input 
+                                        {... field}
+                                        type={input.type}
+                                        min={input.min}
+                                        max={input.max}
+                                    />
+                                    {error && 
+                                        <React.Fragment>
+                                            <br />
+                                            <small 
+                                                className={classes.error}>
+                                                    * {error}
+                                            </small>
+                                        </React.Fragment>}
+                                </React.Fragment>
                             );
                         }}
                     />
@@ -162,7 +173,7 @@ class DynamicForm extends React.Component {
         let classes = this.props.classes;
         return (
             <div className="app">
-                <h1>Dynamic Form</h1>
+                <h1>{this.props.title}</h1>
                 <Formik 
                     onSubmit={(values) => console.log(values)}
                     validationSchema={this.props.validation}
@@ -174,13 +185,13 @@ class DynamicForm extends React.Component {
                             <div>
                                 <form onSubmit={form.handleSubmit}>
                                     <div className={errorMessageShow}>
-                                        Please correct the errors below
+                                        Por favor, informe corretamente os dados!
                                     </div>
                                     {this.renderFields(this.props.fields)}
                                     <br />
-                                    <button type="submit" className="btn">
-                                        Submit
-                                    </button>
+                                    <Button variant="contained" color="primary" type="submit">
+                                        {this.props.btnName}
+                                    </Button>
                                 </form>
                             </div>
                         );
