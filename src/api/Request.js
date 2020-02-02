@@ -5,11 +5,13 @@ import auth from './Auth';
 class Request {
     constructor() {
         axios.interceptors.response.use(response => response, error => {
-            if(error.response.status === 401) {
-                return auth.logout();
-            }
-            if(error.response && error.response.status === 422) {
-                return Promise.reject(error);
+            if(error.response) {
+                if (error.response.status === 401) {
+                    return auth.logout();
+                }
+                if (error.response.status === 422) {
+                    return Promise.reject(error);
+                }
             }
             return error;
         });
@@ -29,4 +31,4 @@ class Request {
     }
 }
 
-export default new Request;
+export default new Request();

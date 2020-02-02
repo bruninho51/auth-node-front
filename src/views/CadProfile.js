@@ -44,7 +44,8 @@ export default class CadProfile extends React.Component {
           resetForm({});
       }).catch(function(err) {
           let error = 'Verifique sua conexão.';
-          if(err.response.data) {
+          console.log(err);
+          if(err.response) {
               error = err.response.data.message;
           }
           $this.setState({

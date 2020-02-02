@@ -13,4 +13,4 @@ class Task {
     };
 }
 
-export default new Task;
+export default new Task();

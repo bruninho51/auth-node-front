@@ -16,4 +16,4 @@ class Profile {
     }
 }
 
-export default new Profile;
+export default new Profile();
