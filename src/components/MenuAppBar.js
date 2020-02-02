@@ -10,7 +10,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-import Auth from '../api/auth';
+import Auth from '../api/Auth';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -52,7 +52,7 @@ export default function MenuAppBar(props) {
   };
 
   const [state, setState] = React.useState({
-    left: true,
+    left: false,
   });
 
   const toggleDrawer = (side, open) => event => {
@@ -88,7 +88,7 @@ export default function MenuAppBar(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            Gerenciador de Tarefas
+              {props.title}
           </Typography>
           {auth && (
             <div>

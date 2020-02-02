@@ -1,5 +1,5 @@
 import React from 'react';
-import Auth from '../api/auth';
+import Auth from '../api/Auth';
 import { Redirect } from 'react-router-dom';
 
 // Material UI

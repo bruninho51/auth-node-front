@@ -1,5 +1,5 @@
 import React from 'react';
-import Auth from '../api/auth';
+import Auth from '../api/Auth';
 import { Redirect, Link } from 'react-router-dom';
 import MenuAppBar from '../components/MenuAppBar';
 import List from '@material-ui/core/List';
@@ -19,7 +19,7 @@ export default class Principal extends React.Component {
     component() {
         return (
             <div>
-                <MenuAppBar>
+                <MenuAppBar title={this.props.title}>
                     <List>
                         <Link to="/profile">
                             <ListItem button>
@@ -27,10 +27,12 @@ export default class Principal extends React.Component {
                                 <ListItemText primary="Cadastrar Perfil" />
                             </ListItem>
                         </Link>
-                        <ListItem button>
-                            <ListItemIcon><AssignmentIcon /></ListItemIcon>
-                            <ListItemText primary="Cadastrar Tarefa" />
-                        </ListItem>
+                        <Link to="/task">
+                            <ListItem button>
+                                <ListItemIcon><AssignmentIcon /></ListItemIcon>
+                                <ListItemText primary="Cadastrar Tarefa" />
+                            </ListItem>
+                        </Link>
                     </List>
                 </MenuAppBar>
                 <div>

@@ -3,7 +3,7 @@ import config from './../config';
 import auth from './Auth';
 
 axios.interceptors.response.use(response => response, error => {
-    if(error.response.status === 401) {
+    if(error.response && error.response.status === 401) {
         return auth.logout();
     }
     if(error.response && error.response.status === 422) {
@@ -12,15 +12,12 @@ axios.interceptors.response.use(response => response, error => {
     return error;
 });
 
-class Profile {
-    constructor() {
-        this.save = this.save.bind(this);
-    }
+class Task {
 
-    save({nickname, dateOfBird, pwd, score}, CadProfile) {
-        
+    save = ({ name, score, minimumAge, description }, CadTask) => {
+
         return axios({
-            url: `${config.API.URL}/profile`,
+            url: `${config.API.URL}/task`,
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -28,31 +25,32 @@ class Profile {
                 'Authorization': `Bearer ${localStorage.getItem(config.API.TOKEN_NAME)}`
             },
             data: {
-                nickname: nickname,
-                dateOfBird: dateOfBird,
-                pwd: pwd,
-                score: score
+                name: name,
+                score: score,
+                minimumAge: minimumAge,
+                description: description
             }
         }).then(function(response) {
-            CadProfile.setState({
+            CadTask.setState({
                 error: false,
                 isError: false,
                 created: true,
-                success: 'Perfil criado com sucesso!'
+                success: 'Tarefa criada com sucesso!'
             });
         }).catch(function(err) {
             let error = 'Erro desconhecido! Verifique sua conexão.';
             if(err.response.data) {
                 error = err.response.data.message;
             }
-            CadProfile.setState({ 
+            CadTask.setState({
                 error: error,
                 isError: true,
                 created: false
             });
+
             return Promise.reject();
         });
-    }
+    };
 }
 
-export default new Profile;
+export default new Task;

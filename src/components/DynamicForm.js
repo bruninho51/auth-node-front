@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { Formik, Field } from 'formik';
 import { withStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
 
 const styles = {
     hidden: {
@@ -12,7 +13,13 @@ const styles = {
     },
     error: {
         color: "red"
-    }
+    },
+    root: {
+    '& .MuiTextField-root': {
+      marginTop: '15px',
+      width: 200,
+    },
+  },
 };
 
 class DynamicForm extends React.Component {
@@ -48,7 +55,6 @@ class DynamicForm extends React.Component {
         let classes = this.props.classes;
         return (
             <Fragment key={input.name}>
-                <label>{input.label}</label>
                 <div>
                     <Field 
                         name={input.name}
@@ -58,11 +64,20 @@ class DynamicForm extends React.Component {
                             const error = errors[input.name] && touched[input.name] ? errors[input.name] : false;
                             return (
                                 <React.Fragment>
-                                    <input 
-                                        {... field}
-                                        type={input.type}
-                                        min={input.min}
-                                        max={input.max}
+                                    <TextField
+                                      {... field}
+                                      variant="outlined"
+                                      type={input.type}
+                                      label={input.label}    
+                                      InputLabelProps={{
+                                        shrink: true,
+                                      }}
+                                      InputProps={{
+                                        inputProps: {
+                                          min: input.min,
+                                          max: input.max
+                                        }
+                                      }}
                                     />
                                     {error && 
                                         <React.Fragment>
@@ -173,9 +188,8 @@ class DynamicForm extends React.Component {
         let classes = this.props.classes;
         return (
             <div className="app">
-                <h1>{this.props.title}</h1>
                 <Formik 
-                    onSubmit={(values) => console.log(values)}
+                    onSubmit={this.props.handleSubmit}
                     validationSchema={this.props.validation}
                     validateOnChange={true}
                     initialValues={initialValues}
@@ -183,7 +197,7 @@ class DynamicForm extends React.Component {
                         const errorMessageShow = Object.keys(form.errors).length > 0 ? classes.error : classes.hidden;
                         return (
                             <div>
-                                <form onSubmit={form.handleSubmit}>
+                                <form className={classes.root} onSubmit={form.handleSubmit}>
                                     <div className={errorMessageShow}>
                                         Por favor, informe corretamente os dados!
                                     </div>

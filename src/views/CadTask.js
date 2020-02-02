@@ -1,12 +1,12 @@
 import React from 'react';
-import Profile from '../api/Profile';
 import Principal from '../components/Principal';
 import DynamicForm from '../components/DynamicForm';
-import validation from '../validations/profile';
+import validation from '../validations/task';
 import Container from '@material-ui/core/Container';
+import Task from "../api/Task";
 import { ErrorStackedbar, SuccessStackedbar } from '../components/Alert';
 
-export default class CadProfile extends React.Component {
+export default class CadTask extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -16,35 +16,34 @@ export default class CadProfile extends React.Component {
             error: ''
         };
         this.fields = [
-            {label: "Usuário", type: "input", name: "nickname", value: ""},
-            {label: "Senha", type: "password", name: "pwd", value: ""},
-            {label: "Confirmar Senha", type: "password", name: "confirmPwd", value: ""},
-            {label: "Data de Nascimento", type: "date", name: "dateOfBird", value: ""},
-            {label: "Pontuação", type: "number", name: "score", min: 0, value: 0}
+            {label: "Nome", type: "input", name: "name", value: ""},
+            {label: "Pontuação", type: "number", name: "score", min: 0, value: 0},
+            {label: "Idade Mínima", type: "number", name: "minimumAge", min: 0, value: 0},
+            {label: "Descrição", type: "textarea", name: "description", value: ""}
         ];
     }
-    
+
     handleError = () => {
-        this.setState({ isError: false });
+       this.setState({ isError: false });
     };
-    
+
     handleSuccess = () => {
-        this.setState({ created: false });
+       this.setState({ created: false });
     };
-    
-    handleSubmit = (values, {resetForm}) => {
-      Profile.save(values, this).then(() => {
+
+    handleSubmit = (values, { resetForm }) => {
+      Task.save(values, this).then(() => {
           resetForm({});
       });
     };
 
     render() {
         return (
-            <Principal title="Cadastrar Perfil">
+            <Principal title="Cadastrar Tarefa">
                 <Container>
-                    <DynamicForm 
-                        fields={this.fields} 
-                        title="Cadastrar Perfil"
+                    <DynamicForm
+                        fields={this.fields}
+                        title="Cadastrar Tarefa"
                         btnName="Salvar"
                         validation={validation}
                         handleSubmit={this.handleSubmit}

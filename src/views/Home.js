@@ -9,7 +9,7 @@ export default class Home extends React.Component {
 
     render() {
         return (
-            <Principal>
+            <Principal title="Cadastro de Tarefas">
                 <Container>
                     <h1>Home</h1>
                 </Container>
