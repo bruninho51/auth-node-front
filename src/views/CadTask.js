@@ -32,8 +32,25 @@ export default class CadTask extends React.Component {
     };
 
     handleSubmit = (values, { resetForm }) => {
-      Task.save(values, this).then(() => {
+      let $this = this;
+      Task.save(values).then(function(request) {
+          $this.setState({
+              error: false,
+              isError: false,
+              created: true,
+              success: 'Tarefa criada com sucesso!'
+          });
           resetForm({});
+      }).catch(function(err) {
+          let error = 'Verifique sua conexão.';
+          if(err.response && err.response.data) {
+              error = err.response.data.message;
+          }
+          $this.setState({
+              error: error,
+              isError: true,
+              created: false
+          });
       });
     };
 

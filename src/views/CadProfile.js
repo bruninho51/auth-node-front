@@ -33,8 +33,25 @@ export default class CadProfile extends React.Component {
     };
     
     handleSubmit = (values, {resetForm}) => {
-      Profile.save(values, this).then(() => {
+      let $this = this;
+      Profile.save(values).then(function(response) {
+          $this.setState({
+              error: false,
+              isError: false,
+              created: true,
+              success: 'Perfil criado com sucesso!'
+          });
           resetForm({});
+      }).catch(function(err) {
+          let error = 'Verifique sua conexão.';
+          if(err.response.data) {
+              error = err.response.data.message;
+          }
+          $this.setState({
+              error: error,
+              isError: true,
+              created: false
+          });
       });
     };
 
