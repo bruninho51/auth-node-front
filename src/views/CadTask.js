@@ -17,7 +17,7 @@ export default class CadTask extends React.Component {
         };
         this.fields = [
             {label: "Nome", type: "input", name: "name", value: ""},
-            {label: "Pontuação", type: "number", name: "score", min: 0, value: 0},
+            {label: "Pontuação", type: "number", name: "score", min: 1, value: 1},
             {label: "Idade Mínima", type: "number", name: "minimumAge", min: 0, value: 0},
             {label: "Descrição", type: "textarea", name: "description", value: ""}
         ];
