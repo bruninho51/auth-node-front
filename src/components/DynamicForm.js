@@ -68,7 +68,8 @@ class DynamicForm extends React.Component {
                                       {... field}
                                       variant="outlined"
                                       type={input.type}
-                                      label={input.label}    
+                                      label={input.label}
+                                      style={{width: '100%'}}    
                                       InputLabelProps={{
                                         shrink: true,
                                       }}
@@ -112,7 +113,9 @@ class DynamicForm extends React.Component {
                             const options = input.data.map(i => <option key={i} value={i}> {i} </option> );
                             const selectOptions = [defaultOption, ...options];
                             return (
-                                <div className="dropdown">
+                                <div 
+                                    className="dropdown"
+                                    style={{width: '100%'}}>
                                     <select value={field.name} {...field} className={hasError}>
                                         {selectOptions}
                                     </select><br />
@@ -162,7 +165,7 @@ class DynamicForm extends React.Component {
 
                             return (
                                 <div>
-                                    <textarea {...field} className={hasError}></textarea>
+                                    <textarea {...field} className={hasError} style={{width: '100%'}}></textarea>
                                 </div>
                             );
                         }}
@@ -199,7 +202,9 @@ class DynamicForm extends React.Component {
                             <div>
                                 <form className={classes.root} onSubmit={form.handleSubmit}>
                                     <div className={errorMessageShow}>
-                                        Por favor, informe corretamente os dados!
+                                        {
+                                            //Por favor, informe corretamente os dados!
+                                        }
                                     </div>
                                     {this.renderFields(this.props.fields)}
                                     <br />

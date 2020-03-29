@@ -4,11 +4,8 @@ import config from './../config';
 import { Redirect } from 'react-router-dom';
 
 class Auth {
-    constructor() {
-        this.authenticate = this.authenticate.bind(this);
-    }
 
-    authenticate(email, pwd, Login) {
+    authenticate = (email, pwd, Login) => {
         
         axios({
           url: `${config.API.URL}/auth`,
@@ -38,13 +35,20 @@ class Auth {
         });
     }
 
-    isAuthenticate() {
+    isAuthenticate = () => {
       let token = localStorage.getItem(config.API.TOKEN_NAME);
       if(token != undefined) {
         return true;
       }
 
       return false;
+    }
+
+    ifAuthenticatedLoad(component) {
+      return (
+        !this.isAuthenticate() && <Redirect to='/login' /> ||
+        component
+      );
     }
 
     logout() {

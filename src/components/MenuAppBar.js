@@ -118,10 +118,8 @@ export default function MenuAppBar(props) {
               >
                 <MenuItem onClick={handleClose}>Perfil</MenuItem>
                 <MenuItem onClick={handleClose}>Minha Conta</MenuItem>
-                <div>
-                  {renderRedirect()}
-                  <MenuItem onClick={logout}>Sair</MenuItem>
-                </div>
+                {renderRedirect()}
+                <MenuItem onClick={logout}>Sair</MenuItem>
               </Menu>
             </div>
           )}

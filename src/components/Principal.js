@@ -1,52 +1,47 @@
 import React from 'react';
 import Auth from '../api/Auth';
-import { Redirect, Link } from 'react-router-dom';
 import MenuAppBar from '../components/MenuAppBar';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
+import LinkBar from '../components/LinkBar';
 import PersonIcon from '@material-ui/icons/PersonAdd';
 import AssignmentIcon from '@material-ui/icons/Assignment';
+import HomeIcon from '@material-ui/icons/Home';
+import LowPriorityIcon from '@material-ui/icons/LowPriority';
+import DateRangeIcon from '@material-ui/icons/DateRange';
+import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
+import HistoryIcon from '@material-ui/icons/History';
+
+
 
 export default class Principal extends React.Component {
     constructor(props) {
         super(props);
 
-        this.component = this.component.bind(this);
+        this.links = [
+            {to: '/', icon: <HomeIcon />, value: 'Início'},
+            {to: '/profile', icon: <PersonIcon />, value: 'Cadastrar Perfil'},
+            {to: '/task', icon: <AssignmentIcon />, value: 'Cadastrar Tarefa'},
+            {to: '/', icon: <LowPriorityIcon />, value: 'Sortear Tarefas'},
+            {to: '/', icon: <DateRangeIcon />, value: 'Tarefas Por Dia da Semana'},
+            {to: '/', icon: <FormatListNumberedIcon />, value: 'Tarefas de Hoje'},
+            {to: '/', icon: <HistoryIcon />, value: 'Histórico'}
+        ];
     }
 
-    component() {
-        return (
+    render() {
+        return Auth.ifAuthenticatedLoad(
             <div>
                 <MenuAppBar title={this.props.title}>
                     <List>
-                        <Link to="/profile">
-                            <ListItem button>
-                                <ListItemIcon><PersonIcon /></ListItemIcon>
-                                <ListItemText primary="Cadastrar Perfil" />
-                            </ListItem>
-                        </Link>
-                        <Link to="/task">
-                            <ListItem button>
-                                <ListItemIcon><AssignmentIcon /></ListItemIcon>
-                                <ListItemText primary="Cadastrar Tarefa" />
-                            </ListItem>
-                        </Link>
+                        {this.links.map(link => (
+                            <LinkBar to={link.to} icon={link.icon} value={link.value} />
+                        ))}
                     </List>
                 </MenuAppBar>
                 <div>
                     {this.props.children}
                 </div>
             </div>
-        );
-    }
-
-    render() {
-        return (
-            Auth.isAuthenticate() &&
-            this.component() ||
-            <Redirect to='/login' />
         );
     }
 }
