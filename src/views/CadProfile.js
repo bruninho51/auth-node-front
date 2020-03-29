@@ -1,7 +1,7 @@
 import React from 'react';
 import Profile from '../api/Profile';
 import Principal from '../components/Principal';
-import DynamicForm from '../components/DynamicForm';
+import DynamicForm from '../components/form/DynamicForm';
 import validation from '../validations/profile';
 import Container from '@material-ui/core/Container';
 import { ErrorStackedbar, SuccessStackedbar } from '../components/Alert';

@@ -1,6 +1,6 @@
 import React from 'react';
 import Principal from '../components/Principal';
-import DynamicForm from '../components/DynamicForm';
+import DynamicForm from '../components/form/DynamicForm';
 import validation from '../validations/task';
 import Container from '@material-ui/core/Container';
 import Task from "../api/Task";
@@ -19,7 +19,7 @@ export default class CadTask extends React.Component {
             {label: "Nome", type: "input", name: "name", value: ""},
             {label: "Pontuação", type: "number", name: "score", min: 1, value: 1},
             {label: "Idade Mínima", type: "number", name: "minimumAge", min: 0, value: 0},
-            {label: "Descrição", type: "textarea", name: "description", value: ""}
+            {label: "Descrição", type: "input", name: "description", value: "", multiline: true, rows: 2}
         ];
     }
 

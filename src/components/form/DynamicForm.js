@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { Formik, Field } from 'formik';
 import { withStyles } from '@material-ui/core/styles';
-import { Button } from '@material-ui/core';
+import { Button, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 
 const styles = {
@@ -41,12 +41,15 @@ class DynamicForm extends React.Component {
                 const components = {
                     'select': this.renderSelect,
                     'textarea': this.renderTextArea,
-                    'checkbox': this.renderCheckbox
+                    'checkbox': this.renderCheckbox,
                 };
 
-                const callback = components[input.type];
+                if (input.type !== 'component') {
+                    const callback = components[input.type];
+                    return callback ? callback(input) : this.renderGeneric(input);
+                }
 
-                return callback ? callback(input) : this.renderGeneric(input);
+                return input.component;
             })
         );
     }
@@ -70,6 +73,8 @@ class DynamicForm extends React.Component {
                                       type={input.type}
                                       label={input.label}
                                       style={{width: '100%'}}    
+                                      multiline={!!input.multiline}
+                                      rows={input.rows ? input.rows : false}
                                       InputLabelProps={{
                                         shrink: true,
                                       }}
@@ -101,7 +106,6 @@ class DynamicForm extends React.Component {
         let classes = this.props.classes;
         return (
             <Fragment key={input.name}>
-                <label>{input.label}</label>
                 <div>
                     <Field 
                         name={input.name}
@@ -110,16 +114,19 @@ class DynamicForm extends React.Component {
                             const { errors, touched } = props.form;
                             const hasError = errors[input.name] && touched[input.name] ? classes.hasError: "";
                             const defaultOption = <option key="default" value="Please select">Please Select</option>
-                            const options = input.data.map(i => <option key={i} value={i}> {i} </option> );
+                            const options = input.data.map(i => <MenuItem key={i} value={i}> {i} </MenuItem> );
                             const selectOptions = [defaultOption, ...options];
                             return (
-                                <div 
-                                    className="dropdown"
-                                    style={{width: '100%'}}>
-                                    <select value={field.name} {...field} className={hasError}>
-                                        {selectOptions}
-                                    </select><br />
-                                </div>
+                                <FormControl variant="outlined" style={{marginTop: '15px', width: '100%'}}>
+                                    <InputLabel>{input.label}</InputLabel>
+                                    <Select
+                                        {...field}
+                                        className={hasError}
+                                        value={field.name}
+                                    >
+                                        {options}
+                                    </Select>
+                                </FormControl>
                             );
                         }}
                     />

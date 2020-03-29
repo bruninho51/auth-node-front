@@ -11,6 +11,11 @@ class Task {
             description: description
         });
     };
+
+    getAll = () => {
+
+        return Request.do('task', 'GET');
+    } 
 }
 
 export default new Task();

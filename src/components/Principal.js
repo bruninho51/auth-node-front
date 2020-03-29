@@ -11,8 +11,6 @@ import DateRangeIcon from '@material-ui/icons/DateRange';
 import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
 import HistoryIcon from '@material-ui/icons/History';
 
-
-
 export default class Principal extends React.Component {
     constructor(props) {
         super(props);
@@ -22,7 +20,7 @@ export default class Principal extends React.Component {
             {to: '/profile', icon: <PersonIcon />, value: 'Cadastrar Perfil'},
             {to: '/task', icon: <AssignmentIcon />, value: 'Cadastrar Tarefa'},
             {to: '/', icon: <LowPriorityIcon />, value: 'Sortear Tarefas'},
-            {to: '/', icon: <DateRangeIcon />, value: 'Tarefas Por Dia da Semana'},
+            {to: '/task/week', icon: <DateRangeIcon />, value: 'Tarefas Por Dia da Semana'},
             {to: '/', icon: <FormatListNumberedIcon />, value: 'Tarefas de Hoje'},
             {to: '/', icon: <HistoryIcon />, value: 'Histórico'}
         ];
