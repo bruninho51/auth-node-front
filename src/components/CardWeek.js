@@ -1,53 +1,60 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Card, Typography, CardContent } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import { Card, CardContent, Box, Chip } from '@material-ui/core';
 
-const useStyles = makeStyles((theme) => ({
+const styles = {
     card: {
-      cursor: 'pointer',
-      flexGrow: 1.25,
-      width: '100px',
-      position: 'relative',
-      userSelect: 'none',
-      marginLeft: '2px',
+        marginTop: '2px',
+        marginBottom: '2px'
     },
-    check: {
-        position: 'absolute',
-        bottom: '2px',
-        left: '2px',
-    },
-    weekDayWord: {
-        textAlign: 'center',
+    chip: {
+        margin: '2px',
     }
-}));
+};
 
-export default function CardWeek(props) {
+class CardWeek extends React.Component {
+    constructor(props) {
+        super(props);
+        this.weekDays = {
+            dom: 'Domingo', 
+            seg: 'Segunda', 
+            ter: 'Terça', 
+            qua: 'Quarta', 
+            qui: 'Quinta', 
+            sex: 'Sexta', 
+            sab: 'Sábado'
+        };
+    }
 
-    const week = [
-        'Domingo', 
-        'Segunda-Feira', 
-        'Terça-Feira', 
-        'Quarta-Feira', 
-        'Quinta-Feira', 
-        'Sexta-Feira', 
-        'Sábado'
-    ];
+    render() {
 
-    const [selected, setSelected] = React.useState(false);
-
-    const classes = useStyles();
-
-    return (
-        <Card variant="outlined" className={classes.card} onClick={() => setSelected(!selected)}>
-            <CardContent>
-                <Typography variant="h1" component="h1" className={classes.weekDayWord}>
-                    {week[props.weekDay].charAt(0)}
-                </Typography>
-                <Typography color="textSecondary">
-                    {week[props.weekDay]}
-                </Typography>
-                <input type="checkbox" className={classes.check} name={`weekDay_${props.weekDay}`} checked={selected} />
-            </CardContent>
-        </Card>
-    );
+        const { classes } = this.props;
+        console.log(this.props);
+        return (
+            <Card className={ classes.card }>
+                <CardContent>
+                    <Box display="flex" justifyContent="space-between" alignItems="center">
+                        <p>{ this.props.name }</p>
+                        <section className="weekDays">
+                            {Object.keys(this.weekDays).map(day => (
+                                <Chip
+                                    key={day}
+                                    className={classes.chip}
+                                    clickable
+                                    color={this.props.tasksWeeks && this.props.tasksWeeks[day] ? 'primary' : 'default'}
+                                    label={this.weekDays[day].slice(0,1)}
+                                    variant='default'
+                                    onClick={() => {
+                                        this.props.handleClick(day, this.props.id);
+                                    }}
+                              /> 
+                            ))}
+                        </section>
+                    </Box>
+                </CardContent>
+            </Card>
+        );
+    }
 }
+
+export default withStyles(styles)(CardWeek);

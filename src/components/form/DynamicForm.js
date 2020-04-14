@@ -204,15 +204,9 @@ class DynamicForm extends React.Component {
                     validateOnChange={true}
                     initialValues={initialValues}
                     render={(form) => {
-                        const errorMessageShow = Object.keys(form.errors).length > 0 ? classes.error : classes.hidden;
                         return (
                             <div>
                                 <form className={classes.root} onSubmit={form.handleSubmit}>
-                                    <div className={errorMessageShow}>
-                                        {
-                                            //Por favor, informe corretamente os dados!
-                                        }
-                                    </div>
                                     {this.renderFields(this.props.fields)}
                                     <br />
                                     <Button variant="contained" color="primary" type="submit">

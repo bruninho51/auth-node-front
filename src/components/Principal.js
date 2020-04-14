@@ -32,7 +32,7 @@ export default class Principal extends React.Component {
                 <MenuAppBar title={this.props.title}>
                     <List>
                         {this.links.map(link => (
-                            <LinkBar to={link.to} icon={link.icon} value={link.value} />
+                            <LinkBar key={link.value} to={link.to} icon={link.icon} value={link.value} />
                         ))}
                     </List>
                 </MenuAppBar>
