@@ -35,13 +35,30 @@ class CadTaskWeek extends React.Component {
         });
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        if (this.state === nextState) {
+            return false;
+        }
+
+        return true;
+    }
+
     handleClick = (day, id) => {
-        this.setState((state, props) => {
+        
+        this.setState(async (state, props) => {
             let { tasks } = state;
             const taskState = tasks.find(task => task.id === id);
             const idxTask = tasks.indexOf(taskState);
             tasks[idxTask].tasksWeeks[day] = !taskState.tasksWeeks[day];
-            return { tasks };
+
+            const newState = await TaskWeek.save({
+                tasks_id: idxTask,
+                ...tasks[idxTask].tasksWeeks
+            })
+            .then(() => tasks)
+            .catch(() => state);
+
+            return { newState };
         });
     }
 
